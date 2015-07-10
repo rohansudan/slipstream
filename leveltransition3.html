@@ -1,0 +1,63 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+    <title>Level 3 - GO</title>
+	<script type="text/javascript" src="js/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+
+var game = new Phaser.Game(1440, 900, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+var button;
+var music;
+
+
+function preload() {
+
+	game.load.image('title', 'sprites/level3.png');
+	game.load.spritesheet('button', 'sprites/button_sprite_sheet3_go.png', 124, 71);
+    game.load.audio('music', 'sprites/spacejam.mp3');
+
+}
+
+
+
+
+function create() {
+
+	game.stage.backgroundColor = '#pp2299';
+	game.add.sprite(380, 95, 'title');
+
+    music=game.add.audio('music');
+    music.play();
+
+
+    button = game.add.button(game.world.centerX - 100, 300, 'button', actionOnClick, this, 2, 1, 0);
+
+    button.onInputOver.add(over, this);
+    button.onInputOut.add(out, this);
+    button.onInputUp.add(up, this);
+}
+
+
+
+function actionOnClick () {
+
+    window.location.href = "http://localhost:8888/level3.html";
+}
+
+
+function update() {
+
+}
+
+</script>
+
+</body>
+</html>

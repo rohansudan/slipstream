@@ -1,0 +1,456 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+    <title>Level 2</title>
+	<script type="text/javascript" src="js/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+var game = new Phaser.Game(1440, 900, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
+
+function preload() {
+
+    game.load.image('background', 'sprites/grass2.png');
+	game.load.image('car', 'sprites/coolcar2.png');
+	game.load.image('dirt', 'sprites/dirt.png');
+    game.load.image('finish', 'sprites/finish.png');
+    game.load.audio('music', 'sprites/spacejam.mp3');
+    game.load.image('grass', 'sprites/grass.png');
+    game.load.image('arrow', 'sprites/arrowdiagonal.png');
+    game.load.image('arrowup', 'sprites/arrowup.png');
+    game.load.image('arrow2', 'sprites/arrowdiagonal2.png');
+}
+
+var car;
+var background;
+var cursors;
+var dirt;
+var text;
+var music;
+
+function create() {
+
+    game.world.setBounds(0, 0, 2000, 4000);
+
+    game.physics.startSystem(Phaser.Physics.P2JS);
+    game.physics.p2.defaultRestitution = 0.8;
+
+
+    background = game.add.tileSprite(0, 0, 4000, 4000, 'background');
+    background.fixedToCamera = false;
+
+    music=game.add.audio('music');
+    music.play();
+
+    dirt = game.add.group();
+    dirt.enableBody = true;
+
+    dirt = game.add.sprite(0, 0, 'dirt');
+    dirt = game.add.sprite(256, 0, 'dirt');
+    dirt = game.add.sprite(256*2, 0, 'dirt');
+    dirt = game.add.sprite(256*3, 0, 'dirt');
+    dirt = game.add.sprite(256*3, 256, 'dirt');
+    dirt = game.add.sprite(256*3, 256*2, 'dirt');
+    dirt = game.add.sprite(256*4, 256*2, 'dirt');
+    dirt = game.add.sprite(256*4, 256*3, 'dirt');
+    dirt = game.add.sprite(256*4, 256*4, 'dirt');
+    dirt = game.add.sprite(256*5, 256*8, 'dirt');
+    dirt = game.add.sprite(256*5, 256*9, 'dirt');
+    dirt = game.add.sprite(256*4, 256*9, 'dirt');
+    dirt = game.add.sprite(256*3, 256*9, 'dirt');
+    dirt = game.add.sprite(256*5, 256*8, 'dirt');
+    dirt = game.add.sprite(256*5, 256*7, 'dirt');
+    dirt = game.add.sprite(256*5, 256*6, 'dirt');
+    dirt = game.add.sprite(256*5, 256*5, 'dirt');
+    dirt = game.add.sprite(256*5, 256*4, 'dirt');
+    dirt = game.add.sprite(256*4, 256*4, 'dirt');
+    dirt = game.add.sprite(256*3, 256*4, 'dirt');
+    dirt = game.add.sprite(256*3, 256*5, 'dirt');
+    dirt = game.add.sprite(256*3, 256*6, 'dirt');
+    dirt = game.add.sprite(256*3, 256*7, 'dirt');
+    dirt = game.add.sprite(256*3, 256*8, 'dirt');
+    dirt = game.add.sprite(256*3, 256*9, 'dirt');
+    dirt = game.add.sprite(256*3, 256*10, 'dirt');
+    dirt = game.add.sprite(256*3, 256*11, 'dirt');
+    dirt = game.add.sprite(256*3, 256*12, 'dirt');
+    dirt = game.add.sprite(256*4, 256*12, 'dirt');
+    dirt = game.add.sprite(256*5, 256*12, 'dirt');
+    dirt = game.add.sprite(256*6, 256*12, 'dirt');
+
+    grass = game.add.sprite(0, 256, 'grass');
+    grass1 = game.add.sprite(256, 256, 'grass');
+    grass2 = game.add.sprite(512, 256, 'grass');
+
+    grass3 = game.add.sprite(256*4, 0, 'grass');
+    grass4 = game.add.sprite(256*4, 256, 'grass');
+
+    grass5 = game.add.sprite(512, 512, 'grass');
+
+    grass6 = game.add.sprite(512, 256*3, 'grass');
+
+    grass7 = game.add.sprite(256*3, 256*3, 'grass');
+
+    grass8 = game.add.sprite(256*4, 256*5, 'grass');
+    grass9 = game.add.sprite(256*4, 256*6, 'grass');
+    grass10 = game.add.sprite(256*4, 256*7, 'grass');
+    grass11 = game.add.sprite(256*4, 256*8, 'grass');
+
+    grass12 = game.add.sprite(256*5, 256*3, 'grass');
+    grass13 = game.add.sprite(256*5, 256*2, 'grass');
+
+    grass14 = game.add.sprite(256*5, 256, 'grass');
+
+    grass15 = game.add.sprite(256*2, 256*4, 'grass');
+    grass16 = game.add.sprite(256*2, 256*5, 'grass');
+    grass17 = game.add.sprite(256*2, 256*6, 'grass');
+    grass18 = game.add.sprite(256*2, 256*7, 'grass');
+    grass19 = game.add.sprite(256*2, 256*8, 'grass');
+    grass20 = game.add.sprite(256*2, 256*9, 'grass');
+    grass21 = game.add.sprite(256*2, 256*10, 'grass');
+    grass22 = game.add.sprite(256*2, 256*11, 'grass');
+    grass23 = game.add.sprite(256*2, 256*12, 'grass');
+    grass24 = game.add.sprite(256*2, 256*13, 'grass');
+
+    grass25 = game.add.sprite(256*3, 256*13, 'grass');
+    grass26 = game.add.sprite(256*4, 256*13, 'grass');
+    grass27 = game.add.sprite(256*5, 256*13, 'grass');
+    grass28 = game.add.sprite(256*6, 256*13, 'grass');
+    grass29 = game.add.sprite(256*7, 256*13, 'grass');
+
+    grass30 = game.add.sprite(256*4, 256*11, 'grass');
+
+    grass31 = game.add.sprite(256*5, 256*11, 'grass');
+    grass32 = game.add.sprite(256*6, 256*11, 'grass');
+    grass33 = game.add.sprite(256*7, 256*11, 'grass');
+
+    grass34 = game.add.sprite(256*4, 256*10, 'grass');
+
+    grass35 = game.add.sprite(256*5, 256*10, 'grass');
+    grass36 = game.add.sprite(256*6, 256*10, 'grass');
+
+    grass37 = game.add.sprite(256*6, 256*9, 'grass');
+    grass38 = game.add.sprite(256*6, 256*8, 'grass');
+    grass39 = game.add.sprite(256*6, 256*7, 'grass');
+    grass40 = game.add.sprite(256*6, 256*6, 'grass');
+    grass41 = game.add.sprite(256*6, 256*5, 'grass');
+    grass42 = game.add.sprite(256*6, 256*4, 'grass');
+    grass43 = game.add.sprite(256*6, 256*3, 'grass');
+
+    game.add.sprite(625, 275, 'arrow');
+    game.add.sprite(1050, 375, 'arrow');
+    game.add.sprite(850, 825, 'arrow');
+    game.add.sprite(1325, 825, 'arrow');
+    game.add.sprite(1050, 2900, 'arrow');
+
+    game.add.sprite(256*4, 256*5, 'arrowup');
+    game.add.sprite(256*4, 256*6, 'arrowup');
+    game.add.sprite(256*4, 256*7, 'arrowup');
+    game.add.sprite(256*4, 256*8, 'arrowup');
+
+    game.add.sprite(1050, 2600, 'arrow2');
+
+    start = game.add.sprite(-40, 0, 'finish');
+    finish = game.add.sprite(1700, 3072, 'finish');
+
+    text = game.add.text(220, 0, 'START');
+    text = game.add.text(1600, 3080, 'FINISH');
+
+	car = game.add.sprite(50, 120, 'car');
+	game.physics.p2.enable(car);
+	game.camera.follow(car);
+
+
+
+    cursors = game.input.keyboard.createCursorKeys();
+
+
+    dirt.inputEnabled = true;
+    car.inputEnabled = true;
+}
+
+function update() {
+
+
+    if (cursors.left.isDown)
+    {
+        car.body.rotateLeft(100);
+    }
+    else if (cursors.right.isDown)
+    {
+        car.body.rotateRight(100);
+    }
+    else
+    {
+        car.body.setZeroRotation();
+    }
+
+    if (cursors.up.isDown)
+    {
+        car.body.thrust(200);
+    }
+    else if (cursors.down.isDown)
+    {
+        car.body.reverse(100);
+    }
+
+    if (!game.camera.atLimit.x)
+    {
+        background.tilePosition.x -= (car.body.velocity.x * game.time.physicsElapsed);
+    }
+
+    if (!game.camera.atLimit.y)
+    {
+        background.tilePosition.y -= (car.body.velocity.y * game.time.physicsElapsed);
+    }
+
+    if (checkOverlap(car, finish))
+    {
+        window.location.href = "http://localhost:8888/leveltransition3.html";
+    }
+
+    if (checkOverlap(car, grass))
+    {
+        car.body.velocity.y=-100;
+    }
+
+    if (checkOverlap(car, grass1))
+    {
+        car.body.velocity.y=-100;
+    }
+
+    if (checkOverlap(car, grass2))
+    {
+        car.body.velocity.y=-100;
+    }
+
+    if (checkOverlap(car, grass3))
+    {
+        car.body.velocity.x=-100;
+    }
+
+    if (checkOverlap(car, grass4))
+    {
+        car.body.velocity.x=-100;
+    }
+
+    if (checkOverlap(car, grass5))
+    {
+        car.body.velocity.x=100;
+    }
+
+    if (checkOverlap(car, grass7))
+    {
+        car.body.velocity.y=-100;
+    }
+
+    if (checkOverlap(car, grass8))
+    {
+        car.body.velocity.y=-200;
+    }
+
+    if (checkOverlap(car, grass9))
+    {
+        car.body.velocity.y=-200;
+    }
+
+    if (checkOverlap(car, grass10))
+    {
+        car.body.velocity.y=-200;
+    }
+
+    if (checkOverlap(car, grass11))
+    {
+        car.body.velocity.y=-200;
+    }
+
+    if (checkOverlap(car, grass12))
+    {
+        car.body.velocity.x=-100;
+    }
+
+    if (checkOverlap(car, grass13))
+    {
+        car.body.velocity.x=-100;
+    }
+
+    if (checkOverlap(car, grass14))
+    {
+        car.body.velocity.x=100;
+    }
+
+    if (checkOverlap(car, grass15))
+    {
+        car.body.velocity.x=100;
+    }
+
+    if (checkOverlap(car, grass16))
+    {
+        car.body.velocity.x=100;
+    }
+
+    if (checkOverlap(car, grass17))
+    {
+        car.body.velocity.x=100;
+    }
+
+    if (checkOverlap(car, grass18))
+    {
+        car.body.velocity.x=100;
+    }
+
+    if (checkOverlap(car, grass19))
+    {
+        car.body.velocity.x=100;
+    }
+
+    if (checkOverlap(car, grass20))
+    {
+        car.body.velocity.x=100;
+    }
+
+    if (checkOverlap(car, grass21))
+    {
+        car.body.velocity.x=100;
+    }
+
+    if (checkOverlap(car, grass22))
+    {
+        car.body.velocity.x=100;
+    }
+
+    if (checkOverlap(car, grass23))
+    {
+        car.body.velocity.x=100;
+    }
+
+    if (checkOverlap(car, grass24))
+    {
+        car.body.velocity.x=100;
+    }
+
+    if (checkOverlap(car, grass25))
+    {
+        car.body.velocity.y=-100;
+    }
+
+    if (checkOverlap(car, grass26))
+    {
+        car.body.velocity.y=-100;
+    }
+
+    if (checkOverlap(car, grass27))
+    {
+        car.body.velocity.y=-100;
+    }
+
+    if (checkOverlap(car, grass28))
+    {
+        car.body.velocity.y=-100;
+    }
+
+    if (checkOverlap(car, grass29))
+    {
+        car.body.velocity.y=-100;
+    }
+
+    if (checkOverlap(car, grass30))
+    {
+        car.body.velocity.x=-100;
+    }
+
+    if (checkOverlap(car, grass31))
+    {
+        car.body.velocity.y=100;
+    }
+
+    if (checkOverlap(car, grass32))
+    {
+        car.body.velocity.y=100;
+    }
+
+    if (checkOverlap(car, grass33))
+    {
+        car.body.velocity.y=100;
+    }
+
+    if (checkOverlap(car, grass34))
+    {
+        car.body.velocity.y=-100;
+    }
+
+    if (checkOverlap(car, grass35))
+    {
+        car.body.velocity.y=-100;
+    }
+
+    if (checkOverlap(car, grass36))
+    {
+        car.body.velocity.y=-100;
+    }
+
+    if (checkOverlap(car, grass37))
+    {
+        car.body.velocity.x=-100;
+    }
+
+    if (checkOverlap(car, grass38))
+    {
+        car.body.velocity.x=-100;
+    }
+
+    if (checkOverlap(car, grass39))
+    {
+        car.body.velocity.x=-100;
+    }
+
+    if (checkOverlap(car, grass40))
+    {
+        car.body.velocity.x=-100;
+    }
+
+    if (checkOverlap(car, grass41))
+    {
+        car.body.velocity.x=-100;
+    }
+
+    if (checkOverlap(car, grass42))
+    {
+        car.body.velocity.x=-100;
+    }
+
+    if (checkOverlap(car, grass43))
+    {
+        car.body.velocity.x=-100;
+    }
+
+
+}
+
+
+function checkOverlap(car, grass) {
+
+    var boundsA = car.getBounds();
+    var boundsB = grass.getBounds();
+
+    return Phaser.Rectangle.intersects(boundsA, boundsB);
+}
+
+
+
+function render() {
+
+}
+
+
+</script>
+
+</body>
+</html>

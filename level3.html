@@ -1,0 +1,267 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8" />
+    <title>Level 3</title>
+    <script type="text/javascript" src="js/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+var game = new Phaser.Game(1440, 900, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
+
+function preload() {
+
+    game.load.image('stars', 'sprites/starfield.jpg');
+    game.load.image('car', 'sprites/egg.png');
+    game.load.image('rainbow', 'sprites/rainbow.png');
+    game.load.image('finish', 'sprites/finish.png');
+    game.load.audio('song', 'sprites/spacejam.mp3');
+    game.load.image('boostpad', 'sprites/boostpad.png');
+}
+
+var car;
+var starfield;
+var cursors;
+var rainbow;
+var finish;
+var music;
+var text;
+var timer;
+var milliseconds = 0;
+var seconds = 0;
+var minutes = 0;
+var hours = 0;
+
+function create() {
+
+    game.world.setBounds(0, 0, 6000, 3500);
+
+    game.physics.startSystem(Phaser.Physics.P2JS);
+    game.physics.p2.defaultRestitution = 0.8;
+
+
+    starfield = game.add.tileSprite(0, 0, 1440, 900, 'stars');
+    starfield.fixedToCamera = true;
+
+    music=game.add.audio('song');
+    music.play();
+
+    rainbow1 = game.add.sprite(0, 0, 'rainbow');
+    rainbow2 = game.add.sprite(0, 256, 'rainbow');
+    rainbow3 = game.add.sprite(256, 256, 'rainbow');
+    rainbow4 = game.add.sprite(256, 512, 'rainbow');
+    rainbow5 = game.add.sprite(256, 768, 'rainbow');
+    rainbow6 = game.add.sprite(256, 1024, 'rainbow');
+    rainbow7 = game.add.sprite(512, 1024, 'rainbow');
+    rainbow8 = game.add.sprite(512, 1280, 'rainbow');
+    rainbow9 = game.add.sprite(512, 1536, 'rainbow');
+    rainbow10 = game.add.sprite(256, 1536, 'rainbow');
+    rainbow11 = game.add.sprite(256, 1792, 'rainbow');
+    rainbow12 = game.add.sprite(256, 2048, 'rainbow');
+    rainbow13 = game.add.sprite(512, 2048, 'rainbow');
+    rainbow14 = game.add.sprite(512, 2304, 'rainbow');
+    rainbow15 = game.add.sprite(512, 2560, 'rainbow');
+    rainbow16 = game.add.sprite(768, 2560, 'rainbow');
+    rainbow17 = game.add.sprite(1024, 2560, 'rainbow');
+    rainbow18 = game.add.sprite(1024, 2816, 'rainbow');
+    rainbow19 = game.add.sprite(1024, 3072, 'rainbow');
+    rainbow20 = game.add.sprite(256*5, 3072, 'rainbow');
+    rainbow21 = game.add.sprite(256*6, 256*12, 'rainbow');
+    rainbow22 = game.add.sprite(256*6, 256*11, 'rainbow');
+    rainbow23 = game.add.sprite(256*6, 256*10, 'rainbow');
+    rainbow24 = game.add.sprite(256*6, 256*9, 'rainbow');
+    rainbow25 = game.add.sprite(256*6, 256*8, 'rainbow');
+    rainbow26 = game.add.sprite(256*6, 256*7, 'rainbow');
+    rainbow27 = game.add.sprite(256*6, 256*6, 'rainbow');
+    rainbow28 = game.add.sprite(256*6, 256*5, 'rainbow');
+    rainbow29 = game.add.sprite(256*6, 256*4, 'rainbow');
+    rainbow30 = game.add.sprite(256*6, 256*3, 'rainbow');
+    rainbow31 = game.add.sprite(256*6, 256*2, 'rainbow');
+    rainbow32 = game.add.sprite(256*7, 256*2, 'rainbow');
+    rainbow33 = game.add.sprite(256*8, 256*2, 'rainbow');
+    rainbow34 = game.add.sprite(256*8, 256*3, 'rainbow');
+    rainbow35 = game.add.sprite(256*8, 256*4, 'rainbow');
+    rainbow36 = game.add.sprite(256*8, 256*5, 'rainbow');
+    rainbow37 = game.add.sprite(256*8, 256*6, 'rainbow');
+    rainbow38 = game.add.sprite(256*9, 256*6, 'rainbow');
+    rainbow39 = game.add.sprite(256*10, 256*6, 'rainbow');
+    rainbow40 = game.add.sprite(256*11, 256*6, 'rainbow');
+    rainbow41 = game.add.sprite(256*12, 256*6, 'rainbow');
+    rainbow42 = game.add.sprite(256*13, 256*6, 'rainbow');
+    rainbow43 = game.add.sprite(256*14, 256*6, 'rainbow');
+    rainbow44 = game.add.sprite(256*15, 256*6, 'rainbow');
+    rainbow45 = game.add.sprite(256*16, 256*6, 'rainbow');
+    rainbow46 = game.add.sprite(256*17, 256*6, 'rainbow');
+    rainbow47 = game.add.sprite(256*18, 256*6, 'rainbow');
+    rainbow48 = game.add.sprite(256*19, 256*6, 'rainbow');
+    rainbow49 = game.add.sprite(256*20, 256*6, 'rainbow');
+    rainbow50 = game.add.sprite(256*21, 256*6, 'rainbow');
+    rainbow51 = game.add.sprite(256*22, 256*6, 'rainbow');
+
+    rainbow1.alpha = 0.2;
+    rainbow2.alpha = 0.2;
+    rainbow3.alpha = 0.2;
+    rainbow4.alpha = 0.2;
+    rainbow5.alpha = 0.2;
+    rainbow6.alpha = 0.2;
+    rainbow7.alpha = 0.2;
+    rainbow8.alpha = 0.2;
+    rainbow9.alpha = 0.2;
+    rainbow10.alpha = 0.2;
+    rainbow11.alpha = 0.2;
+    rainbow12.alpha = 0.2;
+    rainbow13.alpha = 0.2;
+    rainbow14.alpha = 0.2;
+    rainbow15.alpha = 0.2;
+    rainbow16.alpha = 0.2;
+    rainbow17.alpha = 0.2;
+    rainbow18.alpha = 0.2;
+    rainbow19.alpha = 0.2;
+    rainbow20.alpha = 0.2;
+    rainbow21.alpha = 0.2;
+    rainbow22.alpha = 0.2;
+    rainbow23.alpha = 0.2;
+    rainbow24.alpha = 0.2;
+    rainbow25.alpha = 0.2;
+    rainbow26.alpha = 0.2;
+    rainbow27.alpha = 0.2;
+    rainbow28.alpha = 0.2;
+    rainbow29.alpha = 0.2;
+    rainbow30.alpha = 0.2;
+    rainbow31.alpha = 0.2;
+    rainbow32.alpha = 0.2;
+    rainbow33.alpha = 0.2;
+    rainbow34.alpha = 0.2;
+    rainbow35.alpha = 0.2;
+    rainbow36.alpha = 0.2;
+    rainbow37.alpha = 0.2;
+    rainbow38.alpha = 0.2;
+    rainbow39.alpha = 0.2;
+    rainbow40.alpha = 0.2;
+    rainbow41.alpha = 0.2;
+    rainbow42.alpha = 0.2;
+    rainbow43.alpha = 0.2;
+    rainbow44.alpha = 0.2;
+    rainbow45.alpha = 0.2;
+    rainbow46.alpha = 0.2;
+    rainbow47.alpha = 0.2;
+    rainbow48.alpha = 0.2;
+    rainbow49.alpha = 0.2;
+    rainbow50.alpha = 0.2;
+    rainbow51.alpha = 0.2;
+
+    finish = game.add.sprite(256*22, 256*6, 'finish');
+    finish.alpha = 0.3;
+
+    timer = game.add.text(0, 0, '00:00:00', text);
+
+    car = game.add.sprite(100, 200, 'car');
+    game.physics.p2.enable(car);
+    game.camera.follow(car);
+
+
+
+    cursors = game.input.keyboard.createCursorKeys();
+
+
+    rainbow.inputEnabled = true;
+    car.inputEnabled = true;
+    finish.inputEnabled = true;
+}
+
+function update() {
+
+
+    if (cursors.left.isDown)
+    {
+        car.body.rotateLeft(100);
+    }
+    else if (cursors.right.isDown)
+    {
+        car.body.rotateRight(100);
+    }
+    else
+    {
+        car.body.setZeroRotation();
+    }
+
+    if (cursors.up.isDown)
+    {
+        car.body.thrust(400);
+    }
+    else if (cursors.down.isDown)
+    {
+        car.body.reverse(100);
+    }
+
+    if (!game.camera.atLimit.x)
+    {
+        starfield.tilePosition.x -= (car.body.velocity.x * game.time.physicsElapsed);
+    }
+
+    if (!game.camera.atLimit.y)
+    {
+        starfield.tilePosition.y -= (car.body.velocity.y * game.time.physicsElapsed);
+    }
+
+    if (checkOverlap(car, finish))
+    {
+        window.location.href="localhost:8888/game.html";
+    }
+
+    updateTimer();
+}
+
+
+function checkOverlap(car, rainbow) {
+
+    var boundsA = car.getBounds();
+    var boundsB = rainbow.getBounds();
+
+    return Phaser.Rectangle.intersects(boundsA, boundsB);
+}
+
+function updateTimer() {
+ 
+    minutes = Math.floor(game.time.time / 60000) % 60;
+ 
+    seconds = Math.floor(game.time.time / 1000) % 60;
+ 
+    milliseconds = Math.floor(game.time.time) % 100;
+
+    if (milliseconds < 10)
+        milliseconds = '0' + milliseconds;
+ 
+    if (seconds < 10)
+        seconds = '0' + seconds;
+ 
+    if (minutes < 10)
+        minutes = '0' + minutes;
+ 
+    timer.setText(minutes + ':'+ seconds + ':' + milliseconds);
+ 
+}
+
+
+
+
+
+
+
+
+function render() {
+
+}
+
+
+</script>
+
+</body>
+</html>

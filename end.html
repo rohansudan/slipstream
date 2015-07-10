@@ -1,0 +1,96 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+    <title>end yo</title>
+	<script type="text/javascript" src="js/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+var game = new Phaser.Game(1440, 900, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
+
+function preload() {
+
+    game.load.image('background', 'sprites/endscenegrass.png');
+    game.load.image('end', 'sprites/end.png');
+    game.load.image('car', 'sprites/coolcar.png');
+    game.load.image('kart', 'sprites/coolcar2.png');
+    game.load.image('egg', 'sprites/egg.png');
+    game.load.audio('music', 'sprites/spacejam.mp3')
+
+
+
+}
+
+var car;
+var background;
+var end;
+var egg;
+var kart;
+
+function create() {
+
+    music = game.add.audio('music');
+
+    music.play();
+
+
+    game.world.setBounds(0, 0, 4000, 4000);
+    this.game.world.scale.setTo(0.8, 0.8);
+
+
+    game.physics.startSystem(Phaser.Physics.P2JS);
+    game.physics.p2.defaultRestitution = 0.8;
+
+
+    background = game.add.tileSprite(0, 0, 8000, 1111, 'background');
+    background.fixedToCamera = false;
+
+
+	car = game.add.sprite(600, 500, 'car');
+	game.physics.p2.enable(car);
+
+    kart = game.add.sprite(2000, 400, 'kart');
+    game.physics.p2.enable(kart);
+
+
+    egg = game.add.sprite(1800, 600, 'egg');
+    game.physics.p2.enable(egg);
+
+
+
+    end = game.add.sprite(3550, 200, 'end');
+    game.physics.p2.enable(end)
+    picture.fixedToCamera = true;
+
+    jam = game.add.sprite(3550, 300, 'jam');
+    game.physics.p2.enable*(jam);
+
+}
+
+function update() {
+    kart.body.velocity.x=80;
+    car.body.velocity.x=135
+    egg.body.velocity.x=86;
+    game.camera.x += 2.3;
+
+}
+
+
+
+function render() {
+
+}
+
+
+</script>
+
+</body>
+</html>

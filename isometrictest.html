@@ -1,0 +1,61 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+    <title>game</title>
+	<script type="text/javascript" src="js/phaser.min.js"></script>   
+    <script src="js/phaser.min.js"></script>
+    <script src="js/phaser-plugin-isometric.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+
+function preload() {
+    game.plugins.add(new Phaser.Plugin.Isometric(game));
+
+    game.world.setBounds(0, 0, 2048, 1024);
+
+    game.physics.startSystem(Phaser.Plugin.Isometric.ISOARCADE);
+
+    game.iso.anchor.setTo(0.5, 0);
+
+    game.load.image('box', 'sprites/box.png');
+    game.load.image('platform', 'assets/platform.png');
+    game.load.image('star', 'assets/star.png');
+
+    game.load.spritesheet('dude', 'assets/dude.png', 70, 74);
+}
+
+function create() {
+    floorGroup = game.add.group();
+    itemGroup = game.add.group();
+    grassGroup = game.add.group();
+    obstacleGroup = game.add.group();
+
+    floorTile = game.add.isoSprite(xt, yt, 0, 'tile', 0, floorGroup);
+    floorTile.anchor.set(0.5);
+
+    grassTile = game.add.isoSprite(xt, yt, 0, 'grass1', 0, grassGroup);
+    grassTile.anchor.set(0.5);
+
+    box = game.add.isoSprite(xt, yt, 0, 'box', 0, obstacleGroup);
+    box.anchor.set(0.5);
+
+}
+
+function update() {
+
+}
+
+</script>
+
+</body>
+</html>

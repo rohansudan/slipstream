@@ -1,0 +1,81 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+    <title>Main Title Screen</title>
+	<script type="text/javascript" src="js/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+var game = new Phaser.Game(1440, 900, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+
+var emitter;
+var button;
+var background;
+var music;
+
+function preload() {
+
+    game.load.image('cake', 'sprites/cake.png');
+    game.load.image('pizza', 'sprites/pizza.png');
+    game.load.image('title', 'sprites/slipstream.png');
+    game.load.image('beer', 'sprites/beer.png');
+    game.load.spritesheet('button', 'sprites/button_sprite_sheet1.png', 193, 71);
+    game.load.audio('music', 'sprites/spacejam.mp3');
+
+
+}
+
+function create() {
+
+    game.stage.backgroundColor = '#CF0053';
+
+    music=game.add.audio('music');
+    music.play();
+
+
+    emitter = game.add.emitter(game.world.centerX, 150, 200);
+    emitter.makeParticles('beer');
+    emitter.gravity = 0;
+    emitter.start(false, 15000, 40);
+
+    emitter = game.add.emitter(game.world.centerX, 150, 200);
+    emitter.makeParticles('pizza');
+    emitter.gravity = 0;
+    emitter.start(false, 15000, 30);
+
+    emitter = game.add.emitter(game.world.centerX, 150, 200);
+    emitter.makeParticles('cake');
+    emitter.gravity = 0;
+    emitter.start(false, 15000, 20);
+
+
+    game.add.sprite(420, 95, 'title')
+
+    button = game.add.button(game.world.centerX - 100, 300, 'button', actionOnClick, this, 2, 1, 0);
+
+    button.onInputOver.add(over, this);
+    button.onInputOut.add(out, this);
+    button.onInputUp.add(up, this);
+}
+
+function actionOnClick () {
+
+    window.location.href = "http://localhost:8888/leveltransition.html";
+}
+
+function update() {
+}
+
+
+</script>
+
+</body>
+</html>

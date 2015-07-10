@@ -1,0 +1,292 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+    <title>Level 1</title>
+	<script type="text/javascript" src="js/phaser.min.js"></script>   
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+var game = new Phaser.Game(1440, 900, Phaser.AUTO, 'cool game', { preload: preload, create: create, update: update });
+
+function preload() {
+
+    game.load.image('sky', 'sprites/grass2.png');
+    game.load.image('ground', 'assets/platform.png');
+    game.load.image('box', 'sprites/box.png');
+    game.load.image('car', 'sprites/coolcar.png');
+    game.load.image('wall', 'sprites/wall.png');
+    game.load.image('road', 'roadpieces/vertical.png');
+    game.load.image('road2', 'roadpieces/horizontal.png');
+    game.load.image('left-turn', 'roadpieces/turn5.png');
+    game.load.image('right-turn', 'roadpieces/turn2.png');
+    game.load.image('turn3', 'roadpieces/turn3.png');
+    game.load.image('turn1 copy', 'roadpieces/turn1 copy.png');
+    game.load.image('turn6', 'roadpieces/turn6.png');
+    game.load.image('turn4', 'roadpieces/turn4.png');
+    game.load.image('fenceV', 'sprites/fencevertical.png');
+    game.load.image('fenceH', 'sprites/fence.png');
+    game.load.image('boostpad', 'sprites/boostpad.png');
+    game.load.image('finish', 'sprites/finish.png');
+    game.load.image('oil', 'sprites/oilslick.png');
+    game.load.image('smallfence', 'sprites/smallfenceH.png');
+    game.load.image('smallfenceV', 'sprites/smallfenceV.png');
+    game.load.image('boostleft', 'sprites/boostleft.png');
+}
+
+var car;
+var sky;
+var cursors;
+var platforms;
+var fence;
+var text;
+var acceleration;
+
+function create() {
+
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+
+    sky = game.add.tileSprite(0, 0, 1440, 900, 'sky');
+    sky.fixedToCamera = true;
+
+    platforms = game.add.group();
+
+    platforms.enableBody = true;
+
+    var wall = platforms.create(100, 0, 'road');
+    wall.body.immovable = true;
+
+    platforms.create(100, 300, 'road');
+    wall.body.immovable = true;
+
+    platforms.create(100, 500, 'road');
+    wall.body.immovable = true;
+
+    platforms.create(100, 100, 'road');
+    wall.body.immovable = true;
+
+    platforms.create(100, 600, 'road');
+    wall.body.immovable = true;
+
+    platforms.create(100, 800, 'road');
+    wall.body.immovable = true;
+
+    platforms.create(600, 600, 'road');
+    wall.body.immovable = true;
+
+    platforms.create(600, 300, 'road');
+    wall.body.immovable = true;
+
+    platforms.create(600, 0, 'road');
+    wall.body.immovable = true;
+
+    platforms.create(600, 300, 'road');
+    wall.body.immovable = true;
+
+    platforms.create(100, 700, 'left-turn');
+    wall.body.immovable = true;
+
+    platforms.create(600, -10, 'right-turn');
+    wall.body.immovable=true;
+
+    platforms.create(850, -10, 'road2');
+    wall.body.immovable = true;
+
+    platforms.create(1300, 100, 'road');
+    wall.body.immovable = true;
+
+    platforms.create(900, 600, 'road2');
+    wall.body.immovable=true;
+
+    platforms.create(900, 600, 'road');
+    wall.body.immovable=true;
+
+    platforms.create(601, 700, 'road');
+    wall.body.immovable=true;
+
+    platforms.create(600, 400, 'road');
+    wall.body.immovable=true;
+
+    platforms.create(900, 1000, 'road2');
+    wall.body.immovable = true;
+
+    platforms.create(350, 956, 'road2');
+    wall.body.immovable = true;
+
+    platforms.create(345, 956, 'turn3');
+    wall.body.immovable=true;
+
+    platforms.create(1000, 960, 'road2');
+    wall.body.immovable=true;
+
+    platforms.create(1200, 960, 'road2');
+    wall.body.immovable=true;
+
+    platforms.create(1400, 960, 'road2');
+    wall.body.immovable = true;
+
+    platforms.create(1700, 600, 'road');
+    wall.body.immovable=true;
+
+    platforms.create(1700, 400, 'road');
+    wall.body.immovable=true;
+
+    platforms.create(1700, 200, 'road');
+    wall.body.immovable=true;
+
+    platforms.create(1700, 300, 'road');
+    wall.body.immovable = true;
+
+    platforms.create(1700, 0, 'road');
+    wall.body.immovable = true;
+
+    platforms.create(1050, -10, 'road2');
+    wall.body.immovable = true;
+
+    platforms.create(1300, -10, 'turn1 copy');
+    wall.body.immovable = true;
+
+    platforms.create(1044, 500, 'turn3');
+    wall.body.immovable = true;
+
+    platforms.create(900, 500, 'turn6');
+    wall.body.immovable = true;
+
+    platforms.create(900, 960, 'turn4');
+    wall.body.immovable = true;
+
+    platforms.create(1444, 960, 'turn3');
+    wall.body.immovable = true;
+
+    game.add.sprite(1700, 710, 'road');
+    wall.body.immovable = true;
+
+    game.add.sprite(100, -150, 'finish');
+    game.add.sprite(1700, -150, 'finish');
+
+    text = game.add.text(184, 105, 'START');
+    text = game.add.text(1785, 105, 'FINISH');
+
+    fence = game.add.group();
+    fence.enableBody = true;
+
+    smallfence = game.add.sprite(400, 907, 'smallfence');
+
+    fence = game.add.sprite(50, 0, 'fenceV');
+
+    fence1 = game.add.sprite(50, 300, 'fenceV');
+
+    fence2 = game.add.sprite(50, 500, 'fenceV');
+
+    fence3 = game.add.sprite(50, 750, 'fenceV');
+    
+    fence4 = game.add.sprite(355, 0, 'fenceV');
+
+    fence5 = game.add.sprite(355, 150, 'fenceV');
+
+    fence6 = game.add.sprite(355, 300, 'fenceV');
+
+    fence7 = game.add.sprite(355, 500, 'fenceV');
+
+    fence8 = game.add.sprite(355, 556, 'fenceV');
+
+    fence9 = game.add.sprite(551, 556, 'fenceV');
+
+    fence10 = game.add.sprite(551, 300, 'fenceV');
+
+    fence11 = game.add.sprite(551, 0, 'fenceV');
+
+    fence12 = game.add.sprite(855, 245, 'fenceV');
+
+    fence13 = game.add.sprite(855, 400, 'fenceV');
+
+    fence14 = game.add.sprite(855, 600, 'fenceV');
+
+    fence15 = game.add.sprite(1200, 800, 'fenceV');
+
+    fence16 = game.add.sprite(855, 245, 'fenceH');
+
+    fence17 = game.add.sprite(1250, 245, 'smallfenceV');
+
+    fence18 = game.add.sprite(1250, 250, 'smallfenceV');
+
+    fence19 = game.add.sprite(900, 450, 'fenceH');
+
+    car = game.add.sprite(32, game.world.height - 150, 'car');
+    car.anchor.setTo(0.5, 0.5);
+
+    game.physics.arcade.enable(car);
+
+
+    game.physics.enable(car, Phaser.Physics.ARCADE);
+
+    car.body.allowRotation = true;
+
+    car.body.maxAngular = 500;
+    car.body.angularDrag = 50;
+
+    cursors = game.input.keyboard.createCursorKeys();
+
+}
+
+function update() {
+
+    game.physics.arcade.collide(car, fence);
+    game.physics.arcade.collide(car, fence1);
+    game.physics.arcade.collide(car, fence2);
+    game.physics.arcade.collide(car, fence3);
+    game.physics.arcade.collide(car, fence4);
+    game.physics.arcade.collide(car, fence5);
+    game.physics.arcade.collide(car, fence6);
+    game.physics.arcade.collide(car, fence7);
+    game.physics.arcade.collide(car, fence8);
+    game.physics.arcade.collide(car, fence9);
+    game.physics.arcade.collide(car, fence10);
+
+    car.body.velocity.x = 0;
+
+    if (cursors.left.isDown)
+    {
+        car.body.velocity.x = -150
+    }
+    else if (cursors.right.isDown)
+    {
+        car.body.velocity.x = 150;
+    }
+    else
+    {
+        car.body.velocity.x=0;
+        car.body.velocity.y=0;
+
+    }
+    
+    if (cursors.up.isDown)
+    {
+        car.body.velocity.y = -150;
+    }
+
+    else if (cursors.down.isDown)
+    {
+        car.body.velocity.y=150
+    }
+
+}
+
+function render() {
+
+    game.debug.spriteInfo(car, 32, 32);
+
+}
+
+
+</script>
+
+</body>
+</html>

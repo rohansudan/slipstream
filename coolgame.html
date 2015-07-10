@@ -1,0 +1,54 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+    <title>cool game!</title>
+	<script type="text/javascript" src="js/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script src="js/phaser.min.js"></script>
+<script src="js/phaser-plugin-isometric.min.js"></script>
+
+<script type="text/javascript">
+
+
+var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+
+function preload() {
+	game.load.image('chicken', 'sprites/chicken.png');
+	game.load.image('sky', 'assets/sky.png');
+	game.load.image('box', 'sprites/box.png');
+
+}
+
+var player;
+var platforms;
+
+function create() {
+	platforms = game.add.group();
+    platforms.enableBody = true;
+
+    var box = platforms.create(200, 200, 'box');
+    box.body.immovable = true;
+
+	game.add.sprite(0, 0, 'sky');
+	game.physics.startSystem(Phaser.Physics.ARCADE);
+
+	player = game.add.sprite(32, game.world.height - 150, 'chicken');
+	game.physics.arcade.enable(player);
+}
+
+function update() {
+
+}
+
+</script>
+
+</body>
+</html>
